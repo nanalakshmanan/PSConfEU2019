@@ -108,3 +108,8 @@ Write-SSMParameter -Name "DBString" -Description "DB string for connection" -Typ
 Write-SSMParameter -Name "DBPassword" -Description "DB Password" -Type SecureString -Value "TestPassword"
 
 #>
+
+# Create SSM Parameter Store Entries
+Write-SSMParameter -Name "LogPath" -Description "Logpath for IIS" -Type String -Value "C:\IISLog" 
+Write-SSMParameter -Name "WebSiteDestinationPath" -Description "Path for website destination" -Type String -Value 'C:\inetpub\FourthCoffee'
+Write-SSMParameter -Name "WebSiteName" -Description "Name of website" -Type String -Value 'FourthCoffee'

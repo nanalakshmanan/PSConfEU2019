@@ -45,3 +45,8 @@ Remove-SSMParameter -Name "DBPassword" -Force
 
 aws ssm delete-inventory --type-name 'Custom:DscCompliance' --schema-delete-option DeleteSchema
 #>
+
+# Remove SSM Parameters
+Remove-SSMParameter -Name "LogPath" -Force
+Remove-SSMParameter -Name "WebSiteName" -Force
+Remove-SSMParameter -Name "WebSiteDestinationPath" -Force
