@@ -69,6 +69,21 @@ $CommandDocs | % {
 	$contents = Get-Content "../Documents/$($_).yml" -Raw
 	New-SSMDocument -Content $contents -DocumentFormat YAML -DocumentType Command -Name $_ 
 }
+
+# copy bakery website to the instances created
+$Target = New-Object Amazon.SimpleSystemsManagement.Model.Target          
+$Target.Key = 'tag:Name'                                                  
+$Target.Values = @('HRAppWindows') 
+
+$Parameters = @{
+	"BucketName" = 'psconfeu2019'
+	"FolderName" = 'Content'
+	"LocalPath" = 'C:\Content'
+}
+$CommandId = (Send-SSMCommand -DocumentName $CopyS3FolderDoc -Target $Target -Parameter $Parameters).CommandId
+
+while(1){$Status = (Get-SSMCommandInvocation -CommandId $CommandId).Status;if ($Status -eq 'Success'){break;} sleep 2}              
+
 <#
 $AutomationDocs = @($RestartWindowsUpdateApprovalDoc, $RestartServiceDoc)
 
