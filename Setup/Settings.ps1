@@ -24,3 +24,4 @@ $RestartServiceDoc = 'Nana-RestartService'
 #>
 $RestartServiceCommandDoc = 'Nana-RestartServiceCommand'
 $RestartWindowsUpdateDoc = 'Nana-RestartWindowsUpdate'
+$CopyS3FolderDoc = 'Nana-CopyS3Folder'

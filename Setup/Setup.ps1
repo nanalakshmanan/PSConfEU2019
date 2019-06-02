@@ -63,7 +63,7 @@ New-SSMDocument -Name $RestartNodeWithApprovalDoc -DocumentType Automation -Targ
 #>
 
 #$CommandDocs = @($RestartWindowsUpdateDoc, $GetCredentialDoc, $ConfigureServicesDoc, $DscComplianceDoc, $RestartServiceCommandDoc)
-$CommandDocs = @($RestartWindowsUpdateDoc, $RestartServiceCommandDoc)
+$CommandDocs = @($RestartWindowsUpdateDoc, $RestartServiceCommandDoc, $CopyS3FolderDoc)
 
 $CommandDocs | % {
 	$contents = Get-Content "../Documents/$($_).yml" -Raw

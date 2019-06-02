@@ -1,0 +1,42 @@
+#
+# Copyright 2019 Nana Lakshmanan. All Rights Reserved.
+#
+#
+---
+schemaVersion: "2.2"
+description: "Run PowerShell script to copy contents from S3 bucket to local folder"
+
+parameters:
+  BucketName:
+    type: "String"
+    description: "Name of source S3 bucket"
+  FolderName:
+      type: "String"
+      description: "Name of folder to copy"
+  LocalPath:
+      type: "String"
+      description: "Path to local folder to copy contents"
+
+mainSteps:
+- action: "aws:runPowerShellScript"
+  name: "example"
+  inputs:
+    runCommand:
+    -  | 
+        # The name of your S3 Bucket
+        $bucket = "{{BucketName}}"
+        # The folder in your bucket to copy, including trailing slash. Leave blank to copy the entire bucket
+        $keyPrefix = "{{FolderName}}/"
+        # The local file path where files should be copied
+        $localPath = "{{LocalPath}}"
+
+        $objects = Get-S3Object -BucketName $bucket -KeyPrefix $keyPrefix 
+
+        foreach($object in $objects) {
+          $localFileName = $object.Key -replace $keyPrefix, ''
+          if ($localFileName -ne '') {
+            $localFilePath = Join-Path $localPath $localFileName
+            Copy-S3Object -BucketName $bucket -Key $object.Key -LocalFile $localFilePath -AccessKey $accessKey -SecretKey $secretKey -Region $region
+          }
+        }
+...
