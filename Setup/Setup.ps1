@@ -63,7 +63,7 @@ New-SSMDocument -Name $RestartNodeWithApprovalDoc -DocumentType Automation -Targ
 #>
 
 #$CommandDocs = @($RestartWindowsUpdateDoc, $GetCredentialDoc, $ConfigureServicesDoc, $DscComplianceDoc, $RestartServiceCommandDoc)
-$CommandDocs = @($RestartWindowsUpdateDoc, $RestartServiceCommandDoc, $CopyS3FolderDoc)
+$CommandDocs = @($RestartWindowsUpdateDoc, $RestartServiceCommandDoc, $CopyS3FolderDoc, $GetCredentialDoc)
 
 $CommandDocs | % {
 	$contents = Get-Content "../Documents/$($_).yml" -Raw
@@ -100,16 +100,14 @@ $Target.Values = @('HRAppWindows')
 $CommandId = (Send-SSMCommand -DocumentName AWS-UpdateSSMAgent -Target $Target).CommandId
 
 while(1){$Status = (Get-SSMCommandInvocation -CommandId $CommandId).Status;if ($Status -eq 'Success'){break;} sleep 2}              
+#>
 
 # Create SSM Parameter Store entries
 # Note: Secure string cannot be created using a cloud formation template
 Write-SSMParameter -Name "DBString" -Description "DB string for connection" -Type String -Value "server=myserver.dns.domain"
-
 Write-SSMParameter -Name "DBPassword" -Description "DB Password" -Type SecureString -Value "TestPassword"
 
-#>
-
-# Create SSM Parameter Store Entries
+# Create SSM Parameter Store Entries for website configuration
 Write-SSMParameter -Name "LogPath" -Description "Logpath for IIS" -Type String -Value "C:\IISLog" 
 Write-SSMParameter -Name "WebSiteDestinationPath" -Description "Path for website destination" -Type String -Value 'C:\inetpub\FourthCoffee'
 Write-SSMParameter -Name "WebSiteName" -Description "Name of website" -Type String -Value 'FourthCoffee'

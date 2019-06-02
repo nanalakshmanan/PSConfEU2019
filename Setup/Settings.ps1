@@ -17,11 +17,11 @@ $EnvironmentStack = 'DemoEnvironmentPSConfEU2019'
 
 <#
 $RestartWindowsUpdateApprovalDoc = 'Nana-RestartWindowsUpdateWithApproval'
-$GetCredentialDoc = 'Nana-GetCredentialFromStore'
 $ConfigureServicesDoc = 'Nana-ConfigureServices'
 $DscComplianceDoc = 'Nana-DscComplianceInventory'
 $RestartServiceDoc = 'Nana-RestartService'
 #>
+$GetCredentialDoc = 'Nana-GetCredentialFromStore'
 $RestartServiceCommandDoc = 'Nana-RestartServiceCommand'
 $RestartWindowsUpdateDoc = 'Nana-RestartWindowsUpdate'
 $CopyS3FolderDoc = 'Nana-CopyS3Folder'

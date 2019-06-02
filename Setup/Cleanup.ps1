@@ -24,7 +24,7 @@ $AllStacks | % {
 $AllStacks | % {
 	Wait-Stack -StackName $_
 }
-$CommandDocs = @($RestartWindowsUpdateDoc, $RestartServiceCommandDoc, $CopyS3FolderDoc)
+$CommandDocs = @($RestartWindowsUpdateDoc, $RestartServiceCommandDoc, $CopyS3FolderDoc, $GetCredentialDoc)
 
 $CommandDocs | % {
 	Remove-SSMDocument -Name $_ -Force
@@ -39,14 +39,13 @@ Get-SSMAssociationList | foreach AssociationId | %{Remove-SSMAssociation -Associ
 
 
 # Remove SSM Parameters
-Remove-SSMParameter -Name "DBString" -Force
-
-Remove-SSMParameter -Name "DBPassword" -Force
 
 aws ssm delete-inventory --type-name 'Custom:DscCompliance' --schema-delete-option DeleteSchema
 #>
 
 # Remove SSM Parameters
+Remove-SSMParameter -Name "DBString" -Force
+Remove-SSMParameter -Name "DBPassword" -Force
 Remove-SSMParameter -Name "LogPath" -Force
 Remove-SSMParameter -Name "WebSiteName" -Force
 Remove-SSMParameter -Name "WebSiteDestinationPath" -Force
