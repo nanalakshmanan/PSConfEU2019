@@ -24,7 +24,7 @@ $AllStacks | % {
 $AllStacks | % {
 	Wait-Stack -StackName $_
 }
-$CommandDocs = @($RestartWindowsUpdateDoc, $RestartServiceCommandDoc, $CopyS3FolderDoc, $GetCredentialDoc)
+$CommandDocs = @($RestartWindowsUpdateDoc, $RestartServiceCommandDoc, $CopyS3FolderDoc, $GetCredentialDoc, $ApplyDscMof)
 
 $CommandDocs | % {
 	Remove-SSMDocument -Name $_ -Force
