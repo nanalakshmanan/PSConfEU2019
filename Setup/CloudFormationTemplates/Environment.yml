@@ -51,7 +51,7 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfileName
       SecurityGroupIds: [!GetAtt RDPAccessGroup.GroupId]
       Tags:
-      - Key: Name
+      - Key: Type
         Value: Webserver
       - Key: Environment
         Value: Production
@@ -65,7 +65,7 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfileName
       SecurityGroupIds: [!GetAtt RDPAccessGroup.GroupId]
       Tags:
-      - Key: Name
+      - Key: Type
         Value: Webserver
       - Key: Environment
         Value: Production
@@ -79,7 +79,7 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfileName
       SecurityGroupIds: [!GetAtt RDPAccessGroup.GroupId]
       Tags:
-      - Key: Name
+      - Key: Type
         Value: Webserver
       - Key: Environment
         Value: Production
@@ -93,7 +93,7 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfileName
       SecurityGroupIds: [!GetAtt RDPAccessGroup.GroupId]
       Tags:
-      - Key: Name
+      - Key: Type
         Value: Webserver
       - Key: Environment
         Value: Production
@@ -107,7 +107,7 @@ Resources:
       IamInstanceProfile: !Ref InstanceProfileName
       SecurityGroupIds: [!GetAtt RDPAccessGroup.GroupId]
       Tags:
-      - Key: Name
+      - Key: Type
         Value: Webserver
       - Key: Environment
         Value: Production

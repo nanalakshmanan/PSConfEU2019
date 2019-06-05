@@ -24,7 +24,7 @@ $AllStacks | % {
 $AllStacks | % {
 	Wait-Stack -StackName $_
 }
-$CommandDocs = @($RestartWindowsUpdateDoc, $RestartServiceCommandDoc, $CopyS3FolderDoc, $GetCredentialDoc, $ApplyDscMof)
+$CommandDocs = @($RestartWindowsUpdateDoc, $RestartServiceCommandDoc, $CopyS3FolderDoc, $GetCredentialDoc, $ApplyDscMof, $DisableTabletInput)
 
 $CommandDocs | % {
 	Remove-SSMDocument -Name $_ -Force
@@ -36,3 +36,6 @@ Remove-SSMParameter -Name "DBPassword" -Force
 Remove-SSMParameter -Name "LogPath" -Force
 Remove-SSMParameter -Name "WebSiteName" -Force
 Remove-SSMParameter -Name "WebSiteDestinationPath" -Force
+
+# Remove associations
+Get-SSMAssociationList | foreach AssociationId | %{Remove-SSMAssociation -AssociationId $_ -Force}
