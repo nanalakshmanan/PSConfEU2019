@@ -54,16 +54,26 @@ $AllStacks | %{
 	Wait-Stack -StackName $_
 }
 
-$CommandDocs = @($RestartWindowsUpdateDoc, $RestartServiceCommandDoc, $CopyS3FolderDoc, $GetCredentialDoc, $ApplyDscMof)
+$CommandDocs = @($RestartWindowsUpdateDoc, $RestartServiceCommandDoc, $CopyS3FolderDoc, $GetCredentialDoc, $ApplyDscMof, $DisableTabletInput)
 
 $CommandDocs | % {
 	$contents = Get-Content "../Documents/$($_).yml" -Raw
 	New-SSMDocument -Content $contents -DocumentFormat YAML -DocumentType Command -Name $_ 
 }
 
+# Wait to ensure all managed instances show up
+$WaitTime = 1
+while(1){
+	$Count = (Get-SSMInstanceInformation | measure).Count                                    
+	if ($Count -eq 5){break}
+	Write-Verbose "Waiting $WaitTime seconds for managed instances to show up"
+	Start-Sleep 1
+	$WaitTime++
+}
+
 # copy bakery website to the instances created
 $Target = New-Object Amazon.SimpleSystemsManagement.Model.Target          
-$Target.Key = 'tag:Name'                                                  
+$Target.Key = 'tag:Type'                                                  
 $Target.Values = @('Webserver') 
 
 $Parameters = @{
