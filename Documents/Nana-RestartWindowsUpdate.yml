@@ -1,0 +1,16 @@
+#
+# Copyright 2018 Nana Lakshmanan. All Rights Reserved.
+#
+#
+---
+schemaVersion: "2.2"
+description: "Run PowerShell Command: Restart-Service wuauserv"
+
+mainSteps:
+- action: "aws:runPowerShellScript"
+  name: "example"
+  inputs:
+    runCommand:
+    -  | 
+      Restart-Service wuauserv -Verbose
+...
