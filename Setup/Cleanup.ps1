@@ -30,19 +30,6 @@ $CommandDocs | % {
 	Remove-SSMDocument -Name $_ -Force
 }
 
-<#$AutomationDocs = @($RestartWindowsUpdateApprovalDoc, $RestartServiceDoc)
-
-$AutomationDocs | % {
-	Remove-SSMDocument -Name $_ -Force
-}
-Get-SSMAssociationList | foreach AssociationId | %{Remove-SSMAssociation -AssociationId $_ -Force}
-
-
-# Remove SSM Parameters
-
-aws ssm delete-inventory --type-name 'Custom:DscCompliance' --schema-delete-option DeleteSchema
-#>
-
 # Remove SSM Parameters
 Remove-SSMParameter -Name "DBString" -Force
 Remove-SSMParameter -Name "DBPassword" -Force
